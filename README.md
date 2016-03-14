@@ -1,3 +1,3 @@
 # PiCam-with-Laser
 
-Flask project to laser control and see video from camera
+Скрипт реализован на с использованием микрофреймворка Flask. Устанавливается на Raspberry Pi. Для работы скрипта на распберри необходимо установить, разумеется, Flask и mjpg-streamer.

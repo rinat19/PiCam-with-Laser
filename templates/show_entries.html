@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block body %}
+  {% if session.logged_in %}
+    <form action="{{ url_for('add_entry') }}" class="add-entry">
+    {% if session.laser_on %}
+      <input type="image" src="/static/laser_on.png" >
+    {% else %}
+      <input type="image" src="/static/laser_off.png" >
+    {% endif %}
+    </form>
+  {% endif %}
+{% endblock %}

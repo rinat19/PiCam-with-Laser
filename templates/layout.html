@@ -1,0 +1,24 @@
+<!doctype html>
+<title>PiCam</title>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script language="javascript" type="text/javascript">
+    function Button_onclick(direction) {
+        $.ajax({ url: '/' + direction });
+    }
+</script>
+<div class="page">
+	<h1>PiCam</h1>
+	<div class="metanav">
+		{% if not session.logged_in %}
+			<!--a href="{{ url_for('login') }}">log in</a--><p></p>
+		{% else %}
+			<a href="{{ url_for('logout') }}">log out</a>
+			<a href="{{ url_for('shutdown') }}">shutdown</a>
+		{% endif %}
+	</div>
+	{% for message in get_flashed_messages() %}
+		<div class="flash">{{ message }}</div><br>
+	{% endfor %}
+	{% block body %}{% endblock %}
+</div>

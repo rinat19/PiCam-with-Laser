@@ -1,0 +1,79 @@
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+{% extends "layout.html" %}
+{% block body %}
+	{% if session.logged_in %}
+		<form action="{{ url_for('add_entry') }}" class="add-entry">
+            {% if session.laser_on %}
+				<table align="center" class="" width="95">
+					<tr>
+					    <td colspan="2" style="text-align: center">
+					        <input id="btnUp" type="button" value="Up" onclick="Button_onclick('up')" />
+					    </td>
+					</tr>
+					<tr>
+					    <td style="text-align: center" align="right">
+					        <input id="btnLeft" type="button" value="Left" onclick="Button_onclick('left')" />
+					    </td>
+					    <td style="text-align: center" align="left">
+					        <input id="btnRight" type="button" value="Right" onclick="Button_onclick('right')" />
+					    </td>
+					</tr>
+					<tr>
+					    <td colspan="2" style="text-align: center">
+					        <input id="btnDown" type="button" value="Down" onclick="Button_onclick('down')" />
+					    </td>
+					</tr>
+					<tr>
+					    <td colspan="2" style="text-align: center">
+					        <input type="image" src="/static/laser_on.png" >
+					    </td>
+					</tr>
+				</table>
+				<script>
+				    $(window).keydown(function (event) {
+				        if (event.keyCode == 37 || event.keyCode == 65) {
+				            $.ajax({ url: '/left' });
+				            console.log('left')
+				        }
+				        if (event.keyCode == 38 || event.keyCode == 87) {
+				            $.ajax({ url: '/up' });
+				            console.log('up')
+				        }
+				        if (event.keyCode == 39 || event.keyCode == 68) {
+				            $.ajax({ url: '/right' });
+				            console.log('right')
+				        }
+				        if (event.keyCode == 40 || event.keyCode == 83) {
+				            $.ajax({ url: '/down' });
+				            console.log('down')
+				        }
+					});
+				</script>
+		    {% else %}
+				<table align="center" class="" width="95">
+					<tr>
+						<td colspan="2" style="text-align: center">
+							<input type="image" src="/static/laser_off.png" >
+						</td>
+					</tr>
+				</table>
+		    {% endif %}
+        <script type="text/javascript">
+            (function ($) {
+                var hostAdress = location.hostname;
+                $('form').prepend('<center><img src="http://'+hostAdress+':8080/?action=stream"></center>');
+            })(jQuery);
+            $(window).keydown(function (event) {
+                if (event.keyCode == 76) {
+                    document.location.href = "/add";
+                    console.log('laser on/off')
+                }
+                if (event.keyCode == 86) {
+                    document.location.href = "/video";
+                    console.log('video on/off')
+                }
+            });
+	    </script>
+		</form>
+	{% endif %}
+{% endblock %}
